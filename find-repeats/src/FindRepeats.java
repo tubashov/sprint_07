@@ -1,12 +1,23 @@
 public class FindRepeats {
-    int numberOfRepeats(String text, String substring) { // "раз, раз, раз", "раз"
+    int numberOfRepeats(String text, String substring) {
         int count = 0;
-        while (text.contains(substring)) {
-            count++;
-            // text.indexOf(substring) + substring.length()  индекс символа, cледующего за найденой подстрокой
-            text = text.substring(text.indexOf(substring) + substring.length()); // возвращает символы,
-                                                                                        // начиная с указанного индекса
+        if (text == null || substring == null || substring.isEmpty()) {
+            return 0;
         }
+
+        StringBuilder sb = new StringBuilder(text);
+
+        while (true) {
+            int index = sb.indexOf(substring); // ищем подстроку
+            if (index == -1) {
+                break; // совпадений больше нет
+            }
+
+            count++;
+            // удаляем всё до конца найденной подстроки
+            sb.delete(0, index + substring.length());
+        }
+
         return count;
     }
 }
